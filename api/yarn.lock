@@ -843,6 +843,11 @@
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
 
+"bintrees@1.0.1":
+  "integrity" "sha1-DmVcm5wkNeqraL9AJyJtK1WjRSQ="
+  "resolved" "https://registry.npmjs.org/bintrees/-/bintrees-1.0.1.tgz"
+  "version" "1.0.1"
+
 "body-parser@1.19.0":
   "integrity" "sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw=="
   "resolved" "https://registry.npmjs.org/body-parser/-/body-parser-1.19.0.tgz"
@@ -3065,6 +3070,13 @@
     "ansi-styles" "^5.0.0"
     "react-is" "^17.0.1"
 
+"prom-client@^14.0.1":
+  "integrity" "sha512-HxTArb6fkOntQHoRGvv4qd/BkorjliiuO2uSWC2KC17MUTKYttWdDoXX/vxOhQdkoECEM9BBH0pj2l8G8kev6w=="
+  "resolved" "https://registry.npmjs.org/prom-client/-/prom-client-14.0.1.tgz"
+  "version" "14.0.1"
+  dependencies:
+    "tdigest" "^0.1.1"
+
 "prompts@^2.0.1":
   "integrity" "sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q=="
   "resolved" "https://registry.npmjs.org/prompts/-/prompts-2.4.2.tgz"
@@ -3609,6 +3621,13 @@
   "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="
   "resolved" "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz"
   "version" "3.2.4"
+
+"tdigest@^0.1.1":
+  "integrity" "sha1-Ljyyw56kSeVdHmzZEReszKRYgCE="
+  "resolved" "https://registry.npmjs.org/tdigest/-/tdigest-0.1.1.tgz"
+  "version" "0.1.1"
+  dependencies:
+    "bintrees" "1.0.1"
 
 "term-size@^2.1.0":
   "integrity" "sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg=="
