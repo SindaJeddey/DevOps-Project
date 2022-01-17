@@ -1,4 +1,4 @@
-include .make_env
+include .env
 export
 image := backend-devops
 
@@ -8,3 +8,5 @@ build:
 	docker build . -t $(image)
 push: build
 	docker push $(image)
+run: build
+	docker run -p 5000:5000 $(image)

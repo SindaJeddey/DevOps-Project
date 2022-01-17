@@ -4,4 +4,4 @@ build:
 push: build
 	docker push $(image)
 run: build
-	docker run -p 9090:9090 $(image)
+	docker run -p 9090:9090 --network="host"  $(image)
