@@ -26,19 +26,19 @@ jobs:
       - name: Install dependencies
         run: cd api && npm install
       - name: Run tests
-        run: npm test
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Install jq tool
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install jq
-#      - name: Run a multi-line script
-#        run: |
-#          echo Add other actions to build,
-#          echo test, and deploy your project.
+        run: cd api && npm test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install jq tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install jq
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 #  terraform:
 #    - name: HashiCorp - Setup Terraform
 #      uses: hashicorp/setup-terraform@v1.2.1
