@@ -1,15 +1,11 @@
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 
@@ -120,6 +116,9 @@ const Button = styled.button`
   }
 `;
 
+
+//SEND REQUESTS HERE
+
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
@@ -127,7 +126,6 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -148,10 +146,9 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    dispatch(
-      addProduct({ ...product, quantity, color, size })
-    );
+    //Request here
   };
+
   return (
     <Container>
       <Navbar />
@@ -190,8 +187,6 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
-      <Footer />
     </Container>
   );
 };
