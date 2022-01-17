@@ -1,14 +1,25 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+const dynamoose = require("dynamoose");
 
-const ProductSchema = new mongoose.Schema(
-  {
-    title: { type: String, required: true, unique: true },
-    desc: { type: String, required: true },
-    img: { type: String, required: true },
-    price: { type: Number, required: true },
-    inStock: { type: Boolean, default: true },
-  },
-  { timestamps: true }
+// Create new DynamoDB instance
+const ddb = new dynamoose.aws.sdk.DynamoDB({
+    "region": "eu-west-2",
+    "profile": "sandbox"
+});
+
+// Set DynamoDB instance to the Dynamoose DDB instance
+dynamoose.aws.ddb.set(ddb);
+
+const ProductSchema = new dynamoose.Schema(
+    {
+        id: {type: String},
+        title: {type: String},
+        desc: {type: String},
+        img: {type: String},
+        price: {type: Number},
+        inStock: {type: Boolean},
+    },
+    {timestamps: true}
 );
 
-module.exports = mongoose.model("Product", ProductSchema);
+module.exports = dynamoose.model("Product", ProductSchema);
