@@ -20,9 +20,6 @@ const App = () => {
         <Route path="/product/:id">
           <Product />
         </Route>
-        {/* <Route path="/cart">
-          <Cart />
-        </Route> */}
       </Switch>
     </Router>
   );

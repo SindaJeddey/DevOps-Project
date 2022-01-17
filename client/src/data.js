@@ -22,7 +22,43 @@ export const sliderItems = [
     },
   ];
 
-  export const categories = [
+export const products =[
+  {
+    id: "1",
+    title:"Coat",
+    desc:"Coat description",
+    img:"https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+    categories: ["coat"],
+    size: ["S","M","L"],
+    color: ["black"],
+    price: 100,
+    inStock: true
+  },
+  {
+    id: "2",
+    title:"Jeans",
+    desc:"Jeans description",
+    img:"https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+    categories: ["jeans"],
+    size: ["S","M","L"],
+    color: ["black"],
+    price: 100,
+    inStock: true
+  },
+  {
+    id: "3",
+    title:"Coat",
+    desc:"Coat description",
+    img:"https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+    categories: ["coat"],
+    size: ["S","M","L"],
+    color: ["black"],
+    price: 100,
+    inStock: true
+  }
+]
+
+export const categories = [
     {
       id: 1,
       img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
