@@ -108,7 +108,7 @@ const Product = () => {
             const end = new Date();
             const duration = (end.getSeconds() - start.getSeconds()) * 1000;
             const data = {
-                productId: id,
+                productID: id,
                 duration,
                 purchase: false
             }
@@ -132,7 +132,7 @@ const Product = () => {
         const end = new Date();
         const duration = (end.getSeconds() - start.getSeconds()) * 1000;
         const data = {
-            productId: id,
+            productID: id,
             duration,
             purchase: true
         }
