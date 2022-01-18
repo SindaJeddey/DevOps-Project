@@ -28,7 +28,7 @@ jobs:
   build_and_push_docker:
     name: Push Docker image to Docker Hub
     environment: Dev
-    needs: test
+    needs: test_backend_application
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -53,7 +53,7 @@ jobs:
   deploy_front_end:
     name: Build and Copy FrontEnd to S3
     environment: Dev
-    needs: test
+    needs: test_backend_application
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
