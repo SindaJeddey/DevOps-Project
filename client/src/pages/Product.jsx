@@ -130,12 +130,13 @@ const Product = () => {
     const handleClick = () => {
         setStatus(true);
         const end = new Date();
-        const duration = (end.getSeconds() - start.getSeconds()) * 1000;
+        const duration = end.getTime() - start.getTime();
         const data = {
             productID: id,
             duration,
             purchase: true
         }
+        console.log(duration)
         axios.post(baseUrl + "metrics", data)
             .then(res => console.log(res))
             .catch(err => console.log(err));
