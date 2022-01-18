@@ -64,9 +64,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: cd infra && terraform init
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: cd infra && terraform apply -auto-approve
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
