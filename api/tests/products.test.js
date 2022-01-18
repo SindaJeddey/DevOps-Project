@@ -4,7 +4,8 @@ const app = express(); //an instance of an express app, a 'fake' express app
 const dotenv = require("dotenv");
 dotenv.config();
 const AWS = require('aws-sdk-mock');
-
+console.log(process.env.AWS_ACCESS_KEY_ID)
+console.log(process.env.AWS_SECRET_ACCESS_KEY)
 AWS.mock('DynamoDB', 'scan', function (params, callback) {
     callback(null, {
         'Items': [
