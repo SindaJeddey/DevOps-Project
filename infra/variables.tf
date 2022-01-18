@@ -19,3 +19,7 @@ variable "backend_container_image" {
   type    = string
   default = "sindajeddey/backend-devops"
 }
+variable "prometheus_container_image" {
+  type    = string
+  default = "sindajeddey/prometheus"
+}

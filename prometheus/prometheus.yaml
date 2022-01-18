@@ -8,4 +8,4 @@ scrape_configs:
 - job_name: products
   honor_labels: true
   static_configs:
-  - targets: ['insat-devops-project-service-dev:5000']
+  - targets: ['backend-service-dev:5000']

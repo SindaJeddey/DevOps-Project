@@ -91,7 +91,7 @@ resource "aws_ecs_task_definition" "prometheus" {
   container_definitions = jsonencode([
     {
       name         = "${var.name}-container-${var.environment}"
-      image        = "${var.backend_container_image}:${var.environment}"
+      image        = "${var.prometheus_container_image}:${var.environment}"
       essential    = true
       portMappings = [
         {
@@ -131,8 +131,9 @@ resource "aws_ecs_service" "prometheus" {
 
   network_configuration {
     security_groups  = [aws_security_group.prometheus.id]
-    subnets          = module.vpc.private_subnets
-    assign_public_ip = false
+    #    subnets          = module.vpc.private_subnets
+    subnets          = module.vpc.public_subnets
+    assign_public_ip = true
   }
 }
 /// SG
