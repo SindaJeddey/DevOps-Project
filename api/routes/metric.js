@@ -5,13 +5,13 @@ const collectDefaultMetrics = client.collectDefaultMetrics;
 collectDefaultMetrics({timeout: 5000});
 
 const counter = new client.Counter({
-    name: 'node_request_operations_total',
-    help: 'The total number of processed requests'
+    name: 'product_purchase_total',
+    help: 'The total number of purchased products'
 });
 
 const histogram = new client.Histogram({
-    name: 'node_request_duration_seconds',
-    help: 'Histogram for the duration in seconds.',
+    name: 'product_page_observation_second',
+    help: 'Histogram for the duration in seconds of the .',
     buckets: [1, 2, 5, 6, 10]
 });
 
