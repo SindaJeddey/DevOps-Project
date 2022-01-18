@@ -7,16 +7,16 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "sindajeddey"
-    key     = "terraform.tfstate"
-    region  = "eu-west-3"
-#    profile = "sandbox"
+    bucket = "sindajeddey"
+    key    = "terraform.tfstate"
+    region = "eu-west-3"
+    #    profile = "sandbox"
   }
 }
 
 provider "aws" {
-  region  = "eu-west-3"
-#  profile = "sandbox"
+  region = "eu-west-3"
+  #  profile = "sandbox"
 }
 
 
@@ -43,9 +43,9 @@ module "vpc" {
     "10.0.0.32/28"
   ]
   enable_dhcp_options                  = true
-  enable_dns_hostnames = true
-  enable_dns_support = true
-# VPC Flow Logs (Cloudwatch log group and IAM role will be created)
+  enable_dns_hostnames                 = true
+  enable_dns_support                   = true
+  # VPC Flow Logs (Cloudwatch log group and IAM role will be created)
   enable_flow_log                      = true
   create_flow_log_cloudwatch_log_group = true
   create_flow_log_cloudwatch_iam_role  = true
@@ -91,10 +91,10 @@ module "grafana_service" {
 }
 
 module "prometheus_service" {
-  source                      = "./modules/service"
-  name                        = "prometheus"
-  cluster_id                  = aws_ecs_cluster.main.id
-  container_image             = "${var.prometheus_container_image}:${var.environment}"
+  source          = "./modules/service"
+  name            = "prometheus"
+  cluster_id      = aws_ecs_cluster.main.id
+  container_image = "${var.prometheus_container_image}:${var.environment}"
 
   ecs_task_execution_role_arn = module.roles.ecs_task_execution_role
   ecs_task_role_arn           = module.roles.ecs_task_role
