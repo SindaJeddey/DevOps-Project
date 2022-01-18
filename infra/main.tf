@@ -103,6 +103,49 @@ resource "aws_ecs_task_definition" "prometheus" {
     }
   ])
 }
+
+resource "aws_service_discovery_private_dns_namespace" "main" {
+  name        = "devops"
+  description = "Service Discovery"
+  vpc         = module.vpc.vpc_id
+}
+
+resource "aws_service_discovery_service" "backend" {
+  name = "backend"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.main.id
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "MULTIVALUE"
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
+resource "aws_service_discovery_service" "prometheus" {
+  name = "prometheus"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.main.id
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "MULTIVALUE"
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
 resource "aws_ecs_service" "backend" {
   name                               = "backend-service-${var.environment}"
   cluster                            = aws_ecs_cluster.main.id
@@ -112,7 +155,9 @@ resource "aws_ecs_service" "backend" {
   deployment_maximum_percent         = 200
   launch_type                        = "FARGATE"
   scheduling_strategy                = "REPLICA"
-
+  service_registries {
+    registry_arn = aws_service_discovery_service.backend.arn
+  }
   network_configuration {
     security_groups  = [aws_security_group.backend.id]
     subnets          = module.vpc.public_subnets
@@ -128,7 +173,9 @@ resource "aws_ecs_service" "prometheus" {
   deployment_maximum_percent         = 200
   launch_type                        = "FARGATE"
   scheduling_strategy                = "REPLICA"
-
+  service_registries {
+    registry_arn = aws_service_discovery_service.prometheus.arn
+  }
   network_configuration {
     security_groups  = [aws_security_group.prometheus.id]
     #    subnets          = module.vpc.private_subnets
