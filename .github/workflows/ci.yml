@@ -50,7 +50,7 @@ jobs:
           context: ./prometheus/
           push: true
           tags: sindajeddey/prometheus:dev
-  deploy_front_end:
+  deploy:
     name: Build and Copy FrontEnd to S3
     environment: Dev
     env:
@@ -60,6 +60,13 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
       - uses: actions/setup-node@v2
         with:
           node-version: '16'

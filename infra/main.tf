@@ -10,13 +10,13 @@ terraform {
     bucket  = "sindajeddey"
     key     = "terraform.tfstate"
     region  = "eu-west-3"
-    profile = "sandbox"
+#    profile = "sandbox"
   }
 }
 
 provider "aws" {
   region  = "eu-west-3"
-  profile = "sandbox"
+#  profile = "sandbox"
 }
 
 
