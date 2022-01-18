@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
 import axios from "axios";
 
 
@@ -96,7 +95,7 @@ const Product = () => {
   const [start, setStart ] = useState(new Date());
 
   useEffect(() => {
-    axios.get("http://13.37.222.37:5000/api/products/find"+id)
+    axios.get("http://13.37.222.37:5000/api/products/find/"+id)
         .then(res => { setProduct(res.data) })
         .catch(err => console.log(err));
   }, [id]);
@@ -105,15 +104,16 @@ const Product = () => {
     if(!status) {
       const end = new Date();
       const duration = (end.getSeconds() - start.getSeconds()) * 1000;
+      const data = {
+        productId: id,
+        duration,
+        purchase: false
+      }
+      axios.post("http://13.37.222.37:5000/metrics", data)
+          .then(res => console.log(false))
+          .catch(err => console.log(err));
     }
-    const data = {
-      productId: id,
-      duration,
-      purchase: false
-    }
-    axios.post("http://13.37.222.37:5000/metrics", data)
-        .then(res => console.log(false))
-        .catch(err => console.log(err));
+    
   }, [])
 
   const handleQuantity = (type) => {
@@ -134,7 +134,7 @@ const Product = () => {
       purchase: true
     }
     axios.post("http://13.37.222.37:5000/metrics", data)
-        .then(res => console.log(false))
+        .then(res => console.log(res))
         .catch(err => console.log(err));
   };
 
