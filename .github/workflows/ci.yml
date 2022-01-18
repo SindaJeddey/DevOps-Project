@@ -58,8 +58,6 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-        with:
-          path: ./client
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
