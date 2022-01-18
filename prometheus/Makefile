@@ -1,4 +1,4 @@
-image := prometheus-devops
+image := sindajeddey/insat-devops-prometheus 
 build:
 	docker build . -t $(image)
 push: build

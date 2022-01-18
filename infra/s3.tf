@@ -5,6 +5,10 @@ resource "aws_s3_bucket" "devops-hosting" {
   website {
     index_document = "index.html"
   }
+  tags = {
+    Name = "${var.project}-s3"
+    Environment = terraform.workspace
+  }
 }
 
 data "aws_iam_policy_document" "s3-policy" {
