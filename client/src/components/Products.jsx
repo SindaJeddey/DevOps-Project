@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Product from "./Product";
 import axios from "axios";
 
-const baseUrl = '15.188.127.86:5000'
+const baseUrl = 'http://15.188.127.86:5000/'
 
 const Container = styled.div`
   padding: 20px;
@@ -16,7 +16,7 @@ const Products = ({ cat }) => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    axios.get("http://"+baseUrl+"/api/products")
+    axios.get(baseUrl+"api/products")
         .then(res => { setProducts(res.data) })
         .catch(err => console.log(err));
   }, [cat]);

@@ -7,7 +7,7 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-const baseUrl = '15.188.127.86'
+const baseUrl = 'http://15.188.127.86:5000'
 
 const Container = styled.div``;
 
@@ -96,7 +96,7 @@ const Product = () => {
     const [start, setStart] = useState(new Date());
 
     useEffect(() => {
-        axios.get("http://" + baseUrl + "/api/products/find/" + id)
+        axios.get(baseUrl + "api/products/find/" + id)
             .then(res => {
                 setProduct(res.data)
             })
@@ -112,7 +112,7 @@ const Product = () => {
                 duration,
                 purchase: false
             }
-            axios.post("http://" + baseUrl + ":5000/metrics", data)
+            axios.post(baseUrl + "metrics", data)
                 .then(res => console.log(false))
                 .catch(err => console.log(err));
         }
@@ -136,7 +136,7 @@ const Product = () => {
             duration,
             purchase: true
         }
-        axios.post("http://" + baseUrl + ":5000/metrics", data)
+        axios.post(baseUrl + "metrics", data)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
