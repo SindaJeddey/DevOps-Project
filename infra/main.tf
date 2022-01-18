@@ -103,6 +103,72 @@ resource "aws_ecs_task_definition" "prometheus" {
     }
   ])
 }
+resource "aws_ecs_task_definition" "grafana" {
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  family                   = "grafana"
+
+  cpu                   = 256
+  memory                = 512
+  execution_role_arn    = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn         = aws_iam_role.ecs_task_role.arn
+  container_definitions = jsonencode([
+    {
+      name         = "grafana-container-${var.environment}"
+      image        = "grafana/grafana:latest"
+      essential    = true
+      portMappings = [
+        {
+          protocol      = "tcp"
+          containerPort = 3000
+          hostPort      = 3000
+        }
+      ]
+    }
+  ])
+}
+resource "aws_service_discovery_private_dns_namespace" "main" {
+  name        = "devops"
+  description = "Service Discovery"
+  vpc         = module.vpc.vpc_id
+}
+
+resource "aws_service_discovery_service" "backend" {
+  name = "backend"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.main.id
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "MULTIVALUE"
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
+resource "aws_service_discovery_service" "prometheus" {
+  name = "prometheus"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.main.id
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "MULTIVALUE"
+  }
+
+  health_check_custom_config {
+    failure_threshold = 1
+  }
+}
 resource "aws_ecs_service" "backend" {
   name                               = "backend-service-${var.environment}"
   cluster                            = aws_ecs_cluster.main.id
@@ -115,6 +181,21 @@ resource "aws_ecs_service" "backend" {
 
   network_configuration {
     security_groups  = [aws_security_group.backend.id]
+    subnets          = module.vpc.public_subnets
+    assign_public_ip = true
+  }
+}
+resource "aws_ecs_service" "grafana" {
+  name                               = "grafana-service-${var.environment}"
+  cluster                            = aws_ecs_cluster.main.id
+  task_definition                    = aws_ecs_task_definition.grafana.arn
+  desired_count                      = 1
+  deployment_minimum_healthy_percent = 50
+  deployment_maximum_percent         = 200
+  launch_type                        = "FARGATE"
+  scheduling_strategy                = "REPLICA"
+  network_configuration {
+    security_groups  = [aws_security_group.grafana.id]
     subnets          = module.vpc.public_subnets
     assign_public_ip = true
   }
@@ -163,6 +244,25 @@ resource "aws_security_group" "prometheus" {
     protocol         = "tcp"
     from_port        = 9090
     to_port          = 9090
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    protocol         = "-1"
+    from_port        = 0
+    to_port          = 0
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+resource "aws_security_group" "grafana" {
+  name   = "grafana-sg-task-${var.environment}"
+  vpc_id = module.vpc.vpc_id
+  ingress {
+    protocol         = "tcp"
+    from_port        = 3000
+    to_port          = 3000
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
