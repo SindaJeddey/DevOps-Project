@@ -24,3 +24,13 @@ data "aws_iam_policy_document" "s3-policy" {
     ]
   }
 }
+
+resource "null_resource" "s3-bucket" {
+  triggers = {
+    timestamp = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "truncate -s 0 ../client/.make_env && echo 'region=${aws_s3_bucket.devops-hosting.region}\nbucket_name=${aws_s3_bucket.devops-hosting.id}'>../client/.make_env"
+  }
+}
