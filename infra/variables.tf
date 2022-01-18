@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "insat-devops-project"
+  default = "devops"
 }
 variable "name" {
   type    = string
@@ -22,4 +22,8 @@ variable "backend_container_image" {
 variable "prometheus_container_image" {
   type    = string
   default = "sindajeddey/prometheus"
+}
+variable "grafana_container_image" {
+  type    = string
+  default = "grafana/grafana:latest"
 }

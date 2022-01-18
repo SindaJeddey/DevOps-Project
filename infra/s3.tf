@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "devops-hosting" {
-  bucket = var.project
+  bucket = "insat-${var.project}"
   acl    = "public-read"
   policy = data.aws_iam_policy_document.s3-policy.json
   website {
@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "s3-policy" {
       type        = "AWS"
     }
     resources = [
-      "arn:aws:s3:::${var.project}/*"
+      "arn:aws:s3:::insat-${var.project}/*"
     ]
   }
 }

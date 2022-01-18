@@ -55,7 +55,7 @@ jobs:
     environment: Dev
     env:
       CI: false
-    needs: test_backend_application
+    needs: build_and_push_docker
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo

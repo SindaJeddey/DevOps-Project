@@ -96,8 +96,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "HJJORQ17z"
+            "type": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(rate(product_page_observation_second_sum[24h])) by (job) / sum(rate(product_page_observation_second_count[24h]))  by (job) ",
@@ -157,8 +156,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "HJJORQ17z"
+            "type": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(product_page_observation_second_count{purchase=\"true\"}) by (productID)",
@@ -244,8 +242,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "HJJORQ17z"
+            "type": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(rate(product_page_observation_second_sum{purchase=\"true\"}[24h])) by (job) / sum(rate(product_page_observation_second_count{purchase=\"true\"}[24h]))  by (job) ",
@@ -256,8 +253,7 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "HJJORQ17z"
+            "type": "prometheus"
           },
           "exemplar": true,
           "expr": "sum(rate(product_page_observation_second_sum{purchase=\"false\"}[24h])) by (job) / sum(rate(product_page_observation_second_count{purchase=\"false\"}[24h]))  by (job) ",
@@ -316,8 +312,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "HJJORQ17z"
+            "type": "prometheus"
           },
           "exemplar": false,
           "expr": "(sum(product_page_observation_second_sum)  by (productID)  /sum(product_page_observation_second_count)  by (productID)  )",
