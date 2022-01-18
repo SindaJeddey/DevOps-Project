@@ -1,7 +1,7 @@
 # DevOps-Project
 This repository contains a sample E-commerce application developed with ReactJS, Express.JS and uses DynamoDB as a database.
 
-The E-Commerce website can be reached on : http://insat-devops-project.s3-website.eu-west-3.amazonaws.com/ .
+The E-Commerce website can be reached on : http://insat-devops.s3-website.eu-west-3.amazonaws.com/ .
 
 ---
 
@@ -29,11 +29,11 @@ The backend, Grafana and Prometheus are deployed on a container in an ECS cluste
 ---
 
 ## Endpoints
-Method     | Endpoint                                | Description
----------- | --------------------------------------- | ---------------------------
-**GET**    | 13.37.222.37:5000/api/products          | Fetch all products
-**GET**    | 13.37.222.37:5000/api/products/find/:id | Fetch product by ID
-**GET**    | 13.37.222.37:5000/metrics               | Display application metrics
+Method     | Endpoint                                 | Description
+---------- | ---------------------------------------- | ---------------------------
+**GET**    | 15.188.127.86:5000/api/products          | Fetch all products
+**GET**    | 15.188.127.86:5000/api/products/find/:id | Fetch product by ID
+**GET**    | 15.188.127.86:5000/metrics               | Display application metrics
 
 ---
 
