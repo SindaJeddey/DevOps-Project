@@ -9,6 +9,6 @@ resource "aws_dynamodb_table" "products-devops" {
   }
 
   tags = {
-    "Name" = "${var.project}-products-${terraform.workspace}"
+    "Name" = "${var.project}-products"
   }
 }

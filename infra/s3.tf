@@ -7,7 +7,6 @@ resource "aws_s3_bucket" "devops-hosting" {
   }
   tags = {
     Name = "${var.project}-s3"
-    Environment = terraform.workspace
   }
 }
 
