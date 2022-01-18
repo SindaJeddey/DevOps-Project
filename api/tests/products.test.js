@@ -4,8 +4,8 @@ const app = express(); //an instance of an express app, a 'fake' express app
 const dotenv = require("dotenv");
 dotenv.config();
 const AWS = require('aws-sdk-mock');
-console.log(process.env.AWS_ACCESS_KEY_ID)
-console.log(process.env.AWS_SECRET_ACCESS_KEY)
+jest.setTimeout(30000)
+
 AWS.mock('DynamoDB', 'scan', function (params, callback) {
     callback(null, {
         'Items': [
@@ -33,6 +33,7 @@ const productRoutes = require("../routes/product"); //import file we are testing
 app.use("/api/products", productRoutes); //routes
 describe("testing-products-routes", () => {
     it("GET All products - success", async () => {
+
         const {body} = await request(app).get("/api/products"); //uses the request function that calls on express app instance
         expect(body).toEqual([
             {

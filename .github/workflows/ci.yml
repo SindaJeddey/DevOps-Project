@@ -15,23 +15,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment: Dev
-
     steps:
       - uses: actions/checkout@v2
-
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Test
-        run: echo ${{ env.AWS_ACCESS_KEY_ID }}
+
       - name: Install dependencies
         run: cd api && npm install
       - name: Run tests
         run: cd api && npm test
-  build_and_push:
+  build_and_push_docker:
     name: Push Docker image to Docker Hub
     environment: Dev
-    #    needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -47,9 +44,24 @@ jobs:
           context: ./api/
           push: true
           tags: sindajeddey/backend-devops:dev
-      - name: Build and push API Docker image
+      - name: Build and push Prometheus Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./prometheus/
           push: true
           tags: sindajeddey/prometheus:dev
+  deploy_front_end:
+    name: Push Docker image to Docker Hub
+    environment: Dev
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          path: ./client
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Deploy FronEND
+        run: make deploy

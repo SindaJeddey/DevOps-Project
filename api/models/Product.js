@@ -3,7 +3,7 @@ const dynamoose = require("dynamoose");
 // Create new DynamoDB instance
 const ddb = new dynamoose.aws.sdk.DynamoDB({
     "region": process.env.region || 'eu-west-3',
-    // "profile": "sandbox"
+    "profile": process.env.region
 });
 
 // Set DynamoDB instance to the Dynamoose DDB instance

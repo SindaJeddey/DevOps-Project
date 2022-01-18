@@ -1,6 +1,8 @@
 include .make_env
 export
-build:
+install:
+	npm install
+build: install
 	npm run build
 deploy: build
 	aws s3 cp --recursive build/ s3://$(bucket_name)
