@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { products } from "../data";
 import Product from "./Product";
 import axios from "axios";
-import { PrintDisabled } from "@material-ui/icons";
 
 const Container = styled.div`
   padding: 20px;
@@ -13,22 +12,13 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat }) => {
-  console.log(products);
+  const [products, setProducts] = useState([])
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         cat
-  //           ? `http://localhost:5000/api/products?category=${cat}`
-  //           : "http://localhost:5000/api/products"
-  //       );
-  //       setProducts(res.data);
-  //     } catch (err) {}
-  //   };
-  //   getProducts();
-  //   setProducts(products);
-  // }, [cat]);
+  useEffect(() => {
+    axios.get("http://13.37.222.37:5000/api/products")
+        .then(res => { setProducts(res.data) })
+        .catch(err => console.log(err));
+  }, [cat]);
 
   return (
     <Container>

@@ -6,6 +6,8 @@ import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
+import axios from "axios";
+
 
 const Container = styled.div``;
 
@@ -44,40 +46,6 @@ const Price = styled.span`
   font-weight: 100;
   font-size: 40px;
 `;
-
-const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-  ${mobile({ width: "100%" })}
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-  padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   width: 50%;
@@ -123,19 +91,30 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
+  const [quantity, setQuantity] = useState(1); 
+  const [status, setStatus] = useState(false); 
+  const [start, setStart ] = useState(new Date());
 
   useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);
-      } catch {}
-    };
-    getProduct();
+    axios.get("http://13.37.222.37:5000/api/products/find"+id)
+        .then(res => { setProduct(res.data) })
+        .catch(err => console.log(err));
   }, [id]);
+
+  useEffect(() => {
+    if(!status) {
+      const end = new Date();
+      const duration = (end.getSeconds() - start.getSeconds()) * 1000;
+    }
+    const data = {
+      productId: id,
+      duration,
+      purchase: false
+    }
+    axios.post("http://13.37.222.37:5000/metrics", data)
+        .then(res => console.log(false))
+        .catch(err => console.log(err));
+  }, [])
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -146,7 +125,17 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    //Request here
+    setStatus(true);
+    const end = new Date();
+    const duration = (end.getSeconds() - start.getSeconds()) * 1000;
+    const data = {
+      productId: id,
+      duration,
+      purchase: true
+    }
+    axios.post("http://13.37.222.37:5000/metrics", data)
+        .then(res => console.log(false))
+        .catch(err => console.log(err));
   };
 
   return (
