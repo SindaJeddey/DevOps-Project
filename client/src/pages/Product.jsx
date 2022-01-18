@@ -7,7 +7,7 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-const baseUrl = 'http://15.188.127.86:5000'
+const baseUrl = 'http://15.188.127.86:5000/'
 
 const Container = styled.div``;
 
