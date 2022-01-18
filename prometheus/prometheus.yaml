@@ -8,4 +8,4 @@ scrape_configs:
 - job_name: products
   honor_labels: true
   static_configs:
-  - targets: ['10.0.0.45:5000']
+  - targets: ['backend.devops:5000']
